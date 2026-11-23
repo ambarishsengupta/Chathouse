@@ -15,15 +15,21 @@ Trusted product metrics from raw chat logs. Chathouse turns WildChat-1M conversa
 ```
 Chathouse/
   notebooks/01_data_transformation_and_eda.ipynb   Data transformation and EDA
+  scripts/compute_metrics.py                       Pipeline, quality and reconciliation metrics
+  scripts/build_dashboard.py                       Builds the single-file dashboard
+  dashboard/chathouse_medallion_dashboard.html     Medallion pipeline dashboard (open in a browser)
+  presentation/Chathouse_Evaluation_Metrics.pptx   Evaluation metrics deck
   requirements.txt                                 Pinned Python packages
-  output/gold/                                     Gold tables (written by the notebook, not tracked)
+  output/                                          Gold tables and metrics (written by the code, not tracked)
 ```
 
 ## Run
 
 1. Install packages: `pip install -r requirements.txt`
 2. Place the WildChat-1M Parquet files in the repository root, or set `CHATHOUSE_DATA_GLOB` to a glob that matches them.
-3. Open `notebooks/01_data_transformation_and_eda.ipynb` and run all cells. The notebook reads every file that matches the data path.
+3. Open `notebooks/01_data_transformation_and_eda.ipynb` and run all cells. The notebook reads every file that matches the data path and writes the gold tables to `output/gold`.
+4. Run `python scripts/compute_metrics.py` to score every layer. It writes `output/metrics/bundle.json`.
+5. Run `python scripts/build_dashboard.py` to rebuild the dashboard from that file.
 
 ## Data
 
